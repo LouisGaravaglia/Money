@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, session, make_response, redirect, flash, jsonify
 from random import choice, randint
 from forex_python.converter import CurrencyRates
+from forex_python.converter import CurrencyCodes
 from unittest import TestCase
 from flask_debugtoolbar import DebugToolbarExtension
 from decimal import *
@@ -15,6 +16,7 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 debug = DebugToolbarExtension(app)
 
 c = CurrencyRates(force_decimal=True)
+code = CurrencyCodes()
 
 
 
@@ -34,9 +36,9 @@ def result_page():
     amount = request.form["amount"]
     
     result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
-    # start_symbol = c.get_symbol('{start_curr}')
-    # end_symbol = c.get_symbol('{end_curr}')
-    end_symbol = "$"
+    start_symbol = code.get_symbol(start_curr)
+    end_symbol = code.get_symbol(end_curr)
+   
     
     # if not start_symbol:
     #     flash("The converting from currency code is not valid.")
