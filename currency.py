@@ -25,3 +25,12 @@ class CurrencyMethods():
             
         return start_symbol
 
+    def checking_converting_to(self, currencies, end_curr):
+        """Read and return all words in dictionary."""
+
+        if end_curr in currencies:
+            end_symbol = code.get_symbol(end_curr)  
+        else:
+            return flash("The converting to currency code is not valid.", "error")
+            
+        return end_symbol

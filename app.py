@@ -48,11 +48,13 @@ def result_page():
     
     currency_method.checking_converting_from(currencies, start_curr)
     
-    if end_curr in currencies:
-        end_symbol = code.get_symbol(end_curr)  
-    else:
-        flash("The converting to currency code is not valid.", "error")
-        
+    # if end_curr in currencies:
+    #     end_symbol = code.get_symbol(end_curr)  
+    # else:
+    #     flash("The converting to currency code is not valid.", "error")
+    
+    currency_method.checking_converting_to(currencies, end_curr)
+    
     if amount == "" or amount == "0":
         flash("Not a valid amount", "error")  
            
