@@ -48,8 +48,12 @@ def result_page():
         end_symbol = code.get_symbol(end_curr)  
     else:
         flash("The converting to currency code is not valid.", "error")
+        
+    if amount == "" or amount == "0":
+        flash("Not a valid amount", "error")  
+           
     
-    if start_curr in currencies and end_curr in currencies: 
+    if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
         result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
     
     
