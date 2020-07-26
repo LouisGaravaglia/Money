@@ -41,12 +41,12 @@ def result_page():
     rounded = "..."
     end_symbol = ""
     
-    if start_curr in currencies:
-        start_symbol = code.get_symbol(start_curr)
-    else:
-        flash("The converting from currency code is not valid.", "error")
+    # if start_curr in currencies:
+    #     start_symbol = code.get_symbol(start_curr)
+    # else:
+    #     flash("The converting from currency code is not valid.", "error")
     
-    # currency_method.checking_converting_from(currencies, start_curr)
+    currency_method.checking_converting_from(currencies, start_curr)
     
     if end_curr in currencies:
         end_symbol = code.get_symbol(end_curr)  
