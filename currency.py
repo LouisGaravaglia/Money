@@ -23,7 +23,6 @@ class CurrencyMethods():
         else:
             flash("The converting from currency code is not valid.", "error")
             
-        return start_symbol
 
     def checking_converting_to(self, currencies, end_curr):
         """Read and return all words in dictionary."""
