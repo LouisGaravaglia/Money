@@ -33,10 +33,10 @@ def result_page():
     end_curr = request.form["converting-to"]
     amount = request.form["amount"]
     
-    result = c.convert('USD', 'INR', Decimal('10.45'))
-    symbol = "$"
+    result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
     # start_symbol = c.get_symbol('{start_curr}')
     # end_symbol = c.get_symbol('{end_curr}')
+    end_symbol = "$"
     
     # if not start_symbol:
     #     flash("The converting from currency code is not valid.")
@@ -44,5 +44,5 @@ def result_page():
     #     flash("The converting to currency code is not valid.")
             
 
-    return render_template("response.html", result=result, symbol=symbol)
+    return render_template("response.html", result=result, end_symbol=end_symbol)
 
