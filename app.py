@@ -1,10 +1,7 @@
 from flask import Flask, request, render_template, session, make_response, redirect, flash, jsonify
 from random import choice, randint
-# from forex_python.converter import CurrencyRates
-# from forex_python.converter import CurrencyCodes
 from unittest import TestCase
 from flask_debugtoolbar import DebugToolbarExtension
-# from decimal import *
 from currency import CurrencyMethods
 
 app = Flask(__name__)
@@ -16,17 +13,13 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 debug = DebugToolbarExtension(app)
 
-# c = CurrencyRates(force_decimal=True)
-# code = CurrencyCodes()
 currency_method = CurrencyMethods()
 
 
 
 @app.route('/')
 def home_page():
-    """shows home page"""
-
-        
+    """shows home page"""  
 
     return render_template("index.html")
 
@@ -37,37 +30,14 @@ def result_page():
     start_curr = request.form["converting-from"].upper()
     end_curr = request.form["converting-to"].upper()
     amount = request.form["amount"]
-    # rounded = "..."
-    # end_symbol = ""
-    
-    # if start_curr in currencies:
-    #     start_symbol = code.get_symbol(start_curr)
-    # else:
-    #     flash("The converting from currency code is not valid.", "error")
-    
+
     currency_method.checking_converting_from(start_curr)
     
-    # if end_curr in currencies:
-    #     end_symbol = code.get_symbol(end_curr)  
-    # else:
-    #     flash("The converting to currency code is not valid.", "error")
-    
     end_symbol = currency_method.checking_converting_to(end_curr)
-    
-    # if amount == "" or amount == "0":
-    #     flash("Not a valid amount", "error")  
-    
-    currency_method.checking_amount_validity(amount)
-    
-    # if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
-    #     result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
-    #     rounded = round(result,2)
-    
-    rounded = currency_method.checking_all(start_curr, end_curr, amount)
-   
-    
 
-            
+    currency_method.checking_amount_validity(amount)
+
+    rounded = currency_method.checking_all(start_curr, end_curr, amount)       
 
     return render_template("response.html", rounded=rounded, end_symbol=end_symbol)
 
