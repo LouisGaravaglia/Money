@@ -56,11 +56,11 @@ def result_page():
     if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
         result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
     
-    
+    rounded = round(result,2)
    
     
 
             
 
-    return render_template("response.html", result=result, end_symbol=end_symbol)
+    return render_template("response.html", rounded=rounded, end_symbol=end_symbol)
 
