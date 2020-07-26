@@ -18,12 +18,14 @@ debug = DebugToolbarExtension(app)
 c = CurrencyRates(force_decimal=True)
 code = CurrencyCodes()
 
+currencies = {"XCD", "MWK", "MGA", "MOP", "MOP", "LRD", "ZAR", "CHF", "KES", "KZT", "JOD", "JPY", "JMD", "ILS", "IQD", "IRR", "IDR", "ISK", "HUF", "HKD", "HNL", "HTG", "GYD", "XOF", "GNF", "GBP", "GTQ", "XCD", "DKK", "GIP", "GHS", "GEL", "GMD", "XAF", "XPF", "FJD", "DKK", "FKP", "ETB", "ERN", "XAF", "SVC", "EGP", "DOP", "XCD", "DJF", "DKK", "XOF", "CZK", "ANG", "CUP", "CUC", "HRK", "CRC", "NZD", "XAF", "CDF", "KMF", "COU", "COP", "AUD", "CNY", "CLP", "CLF", "XAF", "KYD", "CAD", "XAF", "KHR", "CVE", "BIF", "XOF", "BGN", "BND", "BRL", "NOK", "BWP", "BAM", "BOV", "BOB", "INR", "BTN", "BMD", "XOF", "BZD", "BYN", "BBD", "BDT", "BHD", "BSD", "AZN", "AUD", "AWG", "AMD", "ARS", "XCD", "AOA", "EUR", "USD", "DZD", "ALL", "AFN"}
 
 
 @app.route('/')
 def home_page():
     """shows home page"""
 
+        
 
     return render_template("index.html")
 
@@ -34,16 +36,26 @@ def result_page():
     start_curr = request.form["converting-from"]
     end_curr = request.form["converting-to"]
     amount = request.form["amount"]
+    result = "..."
+    end_symbol = ""
     
-    result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
-    start_symbol = code.get_symbol(start_curr)
-    end_symbol = code.get_symbol(end_curr)
+    if start_curr in currencies:
+        start_symbol = code.get_symbol(start_curr)
+    else:
+        flash("The converting from currency code is not valid.", "error")
+    
+    if end_curr in currencies:
+        end_symbol = code.get_symbol(end_curr)  
+    else:
+        flash("The converting to currency code is not valid.", "error")
+    
+    if start_curr in currencies and end_curr in currencies: 
+        result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
+    
+    
    
     
-    # if not start_symbol:
-    #     flash("The converting from currency code is not valid.")
-    # if not end_symbol:
-    #     flash("The converting to currency code is not valid.")
+
             
 
     return render_template("response.html", result=result, end_symbol=end_symbol)
