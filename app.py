@@ -35,11 +35,11 @@ def home_page():
 def result_page():
     """shows currency exchange rate"""
     
-    start_curr = request.form["converting-from"]
-    end_curr = request.form["converting-to"]
+    start_curr = request.form["converting-from"].upper()
+    end_curr = request.form["converting-to"].upper()
     amount = request.form["amount"]
-    rounded = "..."
-    end_symbol = ""
+    # rounded = "..."
+    # end_symbol = ""
     
     # if start_curr in currencies:
     #     start_symbol = code.get_symbol(start_curr)

@@ -39,7 +39,7 @@ class CurrencyMethods():
         """Read and return all words in dictionary."""
 
         if amount == "" or amount == "0":
-            return flash("Not a valid amount", "error")  
+            flash("Not a valid amount", "error")  
             
 
     def checking_all(self, start_curr, currencies, end_curr, amount):
