@@ -5,6 +5,7 @@ from forex_python.converter import CurrencyCodes
 from unittest import TestCase
 from flask_debugtoolbar import DebugToolbarExtension
 from decimal import *
+from currency import CurrencyMethods
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ debug = DebugToolbarExtension(app)
 
 c = CurrencyRates(force_decimal=True)
 code = CurrencyCodes()
+currency_method = CurrencyMethods()
 
 currencies = {"XCD", "MWK", "MGA", "MOP", "MOP", "LRD", "ZAR", "CHF", "KES", "KZT", "JOD", "JPY", "JMD", "ILS", "IQD", "IRR", "IDR", "ISK", "HUF", "HKD", "HNL", "HTG", "GYD", "XOF", "GNF", "GBP", "GTQ", "XCD", "DKK", "GIP", "GHS", "GEL", "GMD", "XAF", "XPF", "FJD", "DKK", "FKP", "ETB", "ERN", "XAF", "SVC", "EGP", "DOP", "XCD", "DJF", "DKK", "XOF", "CZK", "ANG", "CUP", "CUC", "HRK", "CRC", "NZD", "XAF", "CDF", "KMF", "COU", "COP", "AUD", "CNY", "CLP", "CLF", "XAF", "KYD", "CAD", "XAF", "KHR", "CVE", "BIF", "XOF", "BGN", "BND", "BRL", "NOK", "BWP", "BAM", "BOV", "BOB", "INR", "BTN", "BMD", "XOF", "BZD", "BYN", "BBD", "BDT", "BHD", "BSD", "AZN", "AUD", "AWG", "AMD", "ARS", "XCD", "AOA", "EUR", "USD", "DZD", "ALL", "AFN"}
 
@@ -36,13 +38,15 @@ def result_page():
     start_curr = request.form["converting-from"]
     end_curr = request.form["converting-to"]
     amount = request.form["amount"]
-    result = "..."
+    rounded = "..."
     end_symbol = ""
     
     if start_curr in currencies:
         start_symbol = code.get_symbol(start_curr)
     else:
         flash("The converting from currency code is not valid.", "error")
+    
+    # currency_method.checking_converting_from(currencies, start_curr)
     
     if end_curr in currencies:
         end_symbol = code.get_symbol(end_curr)  
@@ -55,8 +59,9 @@ def result_page():
     
     if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
         result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
+        rounded = round(result,2)
     
-    rounded = round(result,2)
+    
    
     
 
