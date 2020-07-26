@@ -3,7 +3,7 @@ from random import choice, randint
 from forex_python.converter import CurrencyRates
 from unittest import TestCase
 from flask_debugtoolbar import DebugToolbarExtension
-
+from decimal import *
 
 app = Flask(__name__)
 
@@ -14,7 +14,8 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 debug = DebugToolbarExtension(app)
 
-c = CurrencyRates(force_decimal=False)
+c = CurrencyRates(force_decimal=True)
+
 
 
 @app.route('/')
@@ -32,8 +33,16 @@ def result_page():
     end_curr = request.form["converting-to"]
     amount = request.form["amount"]
     
-    result = c.convert('USD', 'INR', amount)
-    symbol = c.get_symbol('{end_curr}')
+    result = c.convert('USD', 'INR', Decimal('10.45'))
+    symbol = "$"
+    # start_symbol = c.get_symbol('{start_curr}')
+    # end_symbol = c.get_symbol('{end_curr}')
+    
+    # if not start_symbol:
+    #     flash("The converting from currency code is not valid.")
+    # if not end_symbol:
+    #     flash("The converting to currency code is not valid.")
+            
 
     return render_template("response.html", result=result, symbol=symbol)
 
