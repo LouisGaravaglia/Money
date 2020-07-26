@@ -46,24 +46,25 @@ def result_page():
     # else:
     #     flash("The converting from currency code is not valid.", "error")
     
-    currency_method.checking_converting_from(currencies, start_curr)
+    start_symbol =  currency_method.checking_converting_from(currencies, start_curr)
     
     # if end_curr in currencies:
     #     end_symbol = code.get_symbol(end_curr)  
     # else:
     #     flash("The converting to currency code is not valid.", "error")
     
-    currency_method.checking_converting_to(currencies, end_curr)
+    end_symbol = currency_method.checking_converting_to(currencies, end_curr)
     
-    if amount == "" or amount == "0":
-        flash("Not a valid amount", "error")  
-           
+    # if amount == "" or amount == "0":
+    #     flash("Not a valid amount", "error")  
     
-    if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
-        result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
-        rounded = round(result,2)
+    currency_method.checking_amount_validity(amount)
     
+    # if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
+    #     result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
+    #     rounded = round(result,2)
     
+    rounded = currency_method.checking_all(start_curr, currencies, end_curr, amount)
    
     
 
