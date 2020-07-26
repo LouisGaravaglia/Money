@@ -16,10 +16,15 @@
 <section id="inputs">
 
 
-      <form method="POST" class="add-word">
-        <input name="word" class="word" autofocus>
-        <button>Enter</button>
-      </form>
+<form action="/response", method="POST">
+  <label for="converting-from">Converting From:</label>
+  <input type="text" name="converting-from" id="converting-from"><br>
+  <label for="converting-to">Converting To:</label>
+  <input type="text" name="converting-to" id="converting-to"><br>
+  <label for="converting-amount">Amount</label>
+  <input type="text" name="amount" id="converting-amount"><br><br>
+  <input type="submit" value="Convert">
+</form> 
 
 
 </section>
