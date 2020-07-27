@@ -19,7 +19,7 @@ class CurrencyMethods():
     #     self.words = self.read_dict("words.txt")
 
     def checking_converting_from(self, start_curr):
-        """Read and return all words in dictionary."""
+        """Checks to see if the staring out currency code is valid"""
 
         if start_curr in currencies:
             start_symbol = code.get_symbol(start_curr)
@@ -28,7 +28,7 @@ class CurrencyMethods():
             
 
     def checking_converting_to(self, end_curr):
-        """Read and return all words in dictionary."""
+        """Checks to see if the converting to currency code is valid"""
 
         if end_curr in currencies:
             end_symbol = code.get_symbol(end_curr)  
@@ -39,18 +39,20 @@ class CurrencyMethods():
         return end_symbol
     
     def checking_amount_validity(self, amount):
-        """Read and return all words in dictionary."""
+        """Checks to see if the user has inputed a value into the amount input,
+        and that it is an amount greater than "0" """
 
-        if amount == "" or amount == "0":
+        if amount == "" or amount == "0" or amount <= "0":
             flash("Not a valid amount", "error")  
             
 
     def checking_all(self, start_curr, end_curr, amount):
-        """Read and return all words in dictionary."""
+        """Checks to make sure all currency codes and amount are valid,
+        before it tries to call c.conver from forex_python"""
 
         rounded = "..."
         
-        if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0": 
+        if start_curr in currencies and end_curr in currencies and amount != "" and amount != "0" and amount >= "0": 
             result = c.convert(f'{start_curr}', f'{end_curr}', Decimal(f'{amount}'))
             rounded = round(result,2)
         
