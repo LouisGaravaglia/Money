@@ -1,4 +1,5 @@
-"""Utilities related to Boggle game."""
+"""Utilities related to Currency Converter."""
+
 from flask import Flask, request, render_template, session, make_response, redirect, flash, jsonify
 from random import choice
 import string
@@ -14,9 +15,6 @@ currencies = {"XCD", "MWK", "MGA", "MOP", "MOP", "LRD", "ZAR", "CHF", "KES", "KZ
 
 class CurrencyMethods():
 
-    # def __init__(self):
-
-    #     self.words = self.read_dict("words.txt")
 
     def checking_converting_from(self, start_curr):
         """Checks to see if the staring out currency code is valid"""

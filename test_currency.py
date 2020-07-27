@@ -25,8 +25,7 @@ class FlaskTests(TestCase):
             self.assertIn(">Convert</button", html)
 
     def test_converting(self):
-        """ Making sure that the method to check whether the currency code
-        entered is a valid currency code. """
+        """ Making sure that the correct html is rendered when correct values are entered. """
 
         with self.client as client:
         
@@ -41,16 +40,15 @@ class FlaskTests(TestCase):
             self.assertIn("<h1>The current currency exchange rate is: €8.48</h1>", html)
  
     def test_converting_to(self):
-        """ Making sure that the method to check whether the currency code
-        entered is a valid currency code. """
+        """ Making sure that the method to return the symbol for the converting
+        to amount is working. """
 
         self.assertEqual(currency_method.checking_converting_to("USD"), "US$")
         self.assertEqual(currency_method.checking_converting_to("EUR"), "€")
         self.assertEqual(currency_method.checking_converting_to("JPY"), "¥")
 
     def test_checking_all(self):
-        """ Making sure that the method to check whether the currency code
-        entered is a valid currency code. """
+        """ Making sure that value returned is rounded to two decimal points. """
 
         self.assertEqual(currency_method.checking_all("USD", "USD", "10"), Decimal('10.00'))
         self.assertEqual(currency_method.checking_all("EUR", "EUR", "5.49"), Decimal('5.49'))

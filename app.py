@@ -15,8 +15,6 @@ debug = DebugToolbarExtension(app)
 
 currency_method = CurrencyMethods()
 
-
-
 @app.route('/')
 def home_page():
     """shows home page"""  
